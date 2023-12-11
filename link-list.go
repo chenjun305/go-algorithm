@@ -100,3 +100,26 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 	}
 	return head
 }
+
+/*
+* 输入两个无环的单向链表，找出它们的第一个公共结点，如果没有公共节点则返回空。
+* 解法：双向奔赴？有点意思的题目，A+B = B+A，找最后相遇的点就是共同走的路
+ */
+func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+	// write code here
+	cur1, cur2 := pHead1, pHead2
+	for cur1 != cur2 {
+		if cur1 == nil {
+			cur1 = pHead2
+		} else {
+			cur1 = cur1.Next
+		}
+		if cur2 == nil {
+			cur2 = pHead1
+		} else {
+			cur2 = cur2.Next
+		}
+	}
+
+	return cur1
+}
