@@ -123,3 +123,42 @@ func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
 
 	return cur1
 }
+
+/*
+* 删除给出链表中的重复元素（链表中元素从小到大有序）, 使链表中的所有元素都只出现一次
+ */
+func deleteDuplicates(head *ListNode) *ListNode {
+	// write code here
+	h := head
+	var pre *ListNode
+	for h != nil {
+		if pre != nil && h.Val == pre.Val {
+			pre.Next = h.Next
+		} else {
+			pre = h
+		}
+		h = h.Next
+	}
+	return head
+}
+
+/*
+* 给出一个升序排序的链表，删除链表中的所有重复出现的元素，只保留原链表中只出现一次的元素。
+* 解法： 递归，只处理前面的元素
+ */
+func deleteDuplicates2(head *ListNode) *ListNode {
+	// write code here
+	if head == nil || head.Next == nil {
+		return head
+	} else {
+		if head.Val != head.Next.Val {
+			head.Next = deleteDuplicates(head.Next)
+			return head
+		} else {
+			for head.Next != nil && head.Next.Val == head.Val {
+				head = head.Next
+			}
+			return deleteDuplicates(head.Next)
+		}
+	}
+}
